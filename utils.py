@@ -22,7 +22,6 @@ def ovh_get_file(bucket, video_path):
 def create_tmp_file(stream_file, temp_video_name, timeout = 10):
     # Checks and deletes the output file
     # You cant have a existing file or it will through an error
-    temp_video_name = '/' + temp_video_name
     if os.path.isfile(temp_video_name):
         os.remove(temp_video_name)
     # opens the file 'output.avi' which is accessible as 'out_file'

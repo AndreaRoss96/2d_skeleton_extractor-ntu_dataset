@@ -20,8 +20,6 @@ from utils import is_already_processed, create_tmp_file, ovh_get_file
  - requirements.py
 """
 
-
-
 s3 = boto3.resource('s3',
                       region_name='sbg',
                       endpoint_url='https://s3.sbg.perf.cloud.ovh.net',
@@ -30,6 +28,7 @@ s3 = boto3.resource('s3',
 bucket = s3.Bucket('fused-data')
 
 processed_files = "already_processed.txt"
+root_folder = "/2d_skeleton_extractor-ntu_dataset/"
 
 with open(processed_files) as file:
     processed_lines = file.readlines()
@@ -64,8 +63,10 @@ for c, bucket_elem in enumerate(bucket.objects.all()):
     if not os.path.isdir(class_folder) :
         os.system(f"mkdir {class_folder}")
     print(f"creating {skeleton_out}")
+    if not os.path.isdir(skeleton_out) :
+        os.system(f"mkdir {skeleton_out}")
     os.system(f"mkdir {skeleton_out}")
-    os.system(f"cd openpose && ./build/examples/openpose/openpose.bin --video {temp_video} --write_json {skeleton_out}  --display 0 --render_pose 0")
+    os.system(f"cd ../openpose && ./build/examples/openpose/openpose.bin --video {root_folder + temp_video} --write_json {root_folder + skeleton_out}  --display 0 --render_pose 0")
     
     with open(processed_files, "a") as p_file :
         p_file.write('\n'+ video_name)
