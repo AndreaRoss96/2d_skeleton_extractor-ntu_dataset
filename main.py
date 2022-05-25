@@ -2,7 +2,6 @@ import os
 from os.path import exists, join, basename, splitext
 from botocore.exceptions import ClientError
 import boto3
-from PIL import Image
 import ovh
 import time
 from utils import is_already_processed, create_tmp_file, ovh_get_file
